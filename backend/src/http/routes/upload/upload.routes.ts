@@ -6,6 +6,7 @@ import { FastifyTypedInstance } from "../../../types/fastify-instance";
 import { UFS } from "../../../types/constants";
 import { DespesaRepositoryPrisma } from "../../../repositories/despesa/prisma/despesa.repository.prisma";
 import { DespesaServiceImplementation } from "../../../services/despesa/despesa.service.implementation";
+import { z } from "zod/v4";
 
 export async function uploadRoutes(app: FastifyTypedInstance) {
   app.post(
@@ -14,7 +15,14 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
       schema: {
         tags: ["csv"],
         description:
-          "Processa um arquivo CSV com os dados de despesas e deputados. Deve-se enviar um arquivo CSV.",
+          "Processa um arquivo CSV com os dados de despesas e deputados. Deve-se enviar um arquivo CSV (multipart/form-data).",
+        summary: "Upload do arquivo CSV",
+
+        response: {
+          200: z.object({ message: z.string() }),
+          400: z.object({ message: z.string() }),
+          500: z.object({ message: z.string() }),
+        },
       },
     },
     async (req, reply) => {
@@ -31,7 +39,7 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
         const csvFile = await req.file();
 
         if (!csvFile || csvFile.mimetype !== "text/csv") {
-          return reply.status(400).send({ error: "Arquivo CSV inválido." });
+          return reply.status(400).send({ message: "Arquivo CSV inválido." });
         }
 
         const results: any[] = [];
@@ -99,8 +107,7 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
       } catch (error) {
         console.error("Erro ao processar CSV:", error);
         return reply.status(500).send({
-          error: "Erro interno ao processar o arquivo CSV.",
-          details: error instanceof Error ? error.message : String(error),
+          message: "Erro interno ao processar o arquivo CSV.",
         });
       }
     }
