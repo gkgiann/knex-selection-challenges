@@ -16,4 +16,8 @@ export class DespesaServiceImplementation implements DespesaService {
   async saveMany(despesas: Despesa[]): Promise<Despesa[]> {
     return this.repository.saveMany(despesas);
   }
+
+  async findDespesasByDeputadoId(deputadoId: string) {
+    return this.repository.findDespesasByDeputadoId(deputadoId);
+  }
 }

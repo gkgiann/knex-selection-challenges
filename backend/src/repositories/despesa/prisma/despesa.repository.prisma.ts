@@ -21,4 +21,8 @@ export class DespesaRepositoryPrisma implements DespesaRepository {
     });
     return despesas;
   }
+
+  async findDespesasByDeputadoId(deputadoId: string): Promise<Despesa[]> {
+    return this.prisma.despesa.findMany({ where: { deputadoId } });
+  }
 }
