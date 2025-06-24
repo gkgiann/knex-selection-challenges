@@ -11,7 +11,8 @@ import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { fastifyMultipart } from "@fastify/multipart";
 
 import { uploadRoutes } from "./routes/upload/upload.routes";
-import { deputadoRoutes } from "./routes/deputado/deputado.routes";
+import { deputyRoutes } from "./routes/deputy/deputy.routes";
+import { de } from "zod/v4/locales";
 
 const app = fastify({
   logger: true,
@@ -49,7 +50,14 @@ app.register(fastifySwaggerUi, {
 });
 
 app.register(uploadRoutes);
-app.register(deputadoRoutes);
+app.register(deputyRoutes);
+
+app.get("/", async (req, reply) => {
+  return reply.status(200).send({
+    message: "API is running",
+    docs: "http://localhost:3333/docs",
+  });
+});
 
 app
   .listen({

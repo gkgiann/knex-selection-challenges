@@ -1,12 +1,18 @@
-import { Deputado, Despesa } from "../../../../generated/prisma_client";
-import { prisma } from "../../../database/prisma";
-import { DeputadoRepositoryPrisma } from "../../../repositories/deputado/prisma/deputado.repository.prisma";
-import { DeputadoServiceImplementation } from "../../../services/deputado/deputado.service.implementation";
 import { FastifyTypedInstance } from "../../../types/fastify-instance";
-import { UFS } from "../../../types/constants";
-import { DespesaRepositoryPrisma } from "../../../repositories/despesa/prisma/despesa.repository.prisma";
-import { DespesaServiceImplementation } from "../../../services/despesa/despesa.service.implementation";
+
+import { Expense, Deputy } from "../../../../generated/prisma_client";
+
+import { prisma } from "../../../database/prisma";
+
 import { z } from "zod/v4";
+
+import { UFS } from "../../../types/constants";
+
+import { DeputyRepositoryPrisma } from "../../../repositories/deputy/prisma/deputy.repository.prisma";
+import { DeputyServiceImplementation } from "../../../services/deputy/deputy.service.implementation";
+
+import { ExpenseRepositoryPrisma } from "../../../repositories/expense/prisma/expense.repository.prisma";
+import { ExpenseServiceImplementation } from "../../../services/expense/expense.service.implementation";
 
 export async function uploadRoutes(app: FastifyTypedInstance) {
   app.post(
@@ -27,13 +33,11 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
     },
     async (req, reply) => {
       try {
-        const deputadoRepository = DeputadoRepositoryPrisma.build(prisma);
-        const deputadoService = new DeputadoServiceImplementation(
-          deputadoRepository
-        );
-        const despesaRepository = DespesaRepositoryPrisma.build(prisma);
-        const despesaService = new DespesaServiceImplementation(
-          despesaRepository
+        const deputyRepository = DeputyRepositoryPrisma.build(prisma);
+        const deputyService = new DeputyServiceImplementation(deputyRepository);
+        const expenseRepository = ExpenseRepositoryPrisma.build(prisma);
+        const expenseService = new ExpenseServiceImplementation(
+          expenseRepository
         );
 
         const csvFile = await req.file();
@@ -69,11 +73,11 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
 
         const resultsFiltered = results.filter((row) => UFS.includes(row.sgUF));
 
-        const deputados: Deputado[] = [];
-        const despesas: Despesa[] = [];
+        const deputies: Deputy[] = [];
+        const expenses: Expense[] = [];
 
         for (const row of resultsFiltered) {
-          const deputado = {
+          const deputy = {
             id: row.ideCadastro,
             nome: row.txNomeParlamentar,
             uf: row.sgUF,
@@ -81,27 +85,27 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
             partido: row.sgPartido,
           };
 
-          if (!deputados.some((d) => d.id === deputado.id)) {
-            deputados.push(deputado);
+          if (!deputies.some((d) => d.id === deputy.id)) {
+            deputies.push(deputy);
           }
 
-          const despesa = {
+          const expense = {
             id: row.ideDocumento,
             dataEmissao: row.datEmissao,
             fornecedor: row.txtFornecedor,
             valorLiquido: row.vlrLiquido,
             urlDocumento: row.urlDocumento,
-            deputadoId: deputado.id,
+            deputadoId: deputy.id,
           };
 
-          despesas.push(despesa);
+          expenses.push(expense);
         }
 
-        // console.log("despesas: ", despesas.length);
+        // console.log("expenses: ", expenses.length);
         // console.log("deputados: ", deputados.length);
 
-        await deputadoService.saveMany(deputados);
-        await despesaService.saveMany(despesas);
+        await deputyService.saveMany(deputies);
+        await expenseService.saveMany(expenses);
 
         return reply.send({ message: "Arquivo CSV processado com sucesso!" });
       } catch (error) {

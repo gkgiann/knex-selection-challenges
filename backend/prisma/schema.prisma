@@ -14,21 +14,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Deputado {
-  id       String    @id
-  nome     String
-  uf       String
-  cpf      String    @unique
-  partido  String
-  despesas Despesa[]
+model Deputy {
+  id      String @id
+  nome    String
+  uf      String
+  cpf     String @unique
+  partido String
+
+  expenses Expense[]
 }
 
-model Despesa {
-  id           String   @id
+model Expense {
+  id           String  @id
   dataEmissao  String
   fornecedor   String
   valorLiquido String
   urlDocumento String?
   deputadoId   String
-  deputado     Deputado @relation(fields: [deputadoId], references: [id])
+
+  deputy Deputy @relation(fields: [deputadoId], references: [id])
 }
