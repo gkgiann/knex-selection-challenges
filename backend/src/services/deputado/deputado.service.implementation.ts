@@ -32,6 +32,10 @@ export class DeputadoServiceImplementation implements DeputadoService {
     return this.repository.findByUf(uf);
   }
 
+  async findById(id: string): Promise<Deputado | null> {
+    return this.repository.findById(id);
+  }
+
   private validateDeputado(deputado: Deputado) {
     DeputadoSchema.parse(deputado);
   }

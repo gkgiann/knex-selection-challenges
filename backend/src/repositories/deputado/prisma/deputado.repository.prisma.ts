@@ -26,4 +26,8 @@ export class DeputadoRepositoryPrisma implements DeputadoRepository {
   async findByUf(uf: string): Promise<Deputado[]> {
     return this.prisma.deputado.findMany({ where: { uf } });
   }
+
+  async findById(id: string): Promise<Deputado | null> {
+    return this.prisma.deputado.findUnique({ where: { id } });
+  }
 }

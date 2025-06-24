@@ -4,4 +4,5 @@ export interface DeputadoRepository {
   save(deputado: Deputado): Promise<Deputado | null>;
   saveMany(deputados: Deputado[]): Promise<Deputado[]>;
   findByUf(uf: string): Promise<Deputado[]>;
+  findById(id: string): Promise<Deputado | null>;
 }
