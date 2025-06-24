@@ -4,6 +4,8 @@ import { DeputadoRepositoryPrisma } from "../../../repositories/deputado/prisma/
 import { DeputadoServiceImplementation } from "../../../services/deputado/deputado.service.implementation";
 import { FastifyTypedInstance } from "../../../types/fastify-instance";
 import { UFS } from "../../../types/constants";
+import { DespesaRepositoryPrisma } from "../../../repositories/despesa/prisma/despesa.repository.prisma";
+import { DespesaServiceImplementation } from "../../../services/despesa/despesa.service.implementation";
 
 export async function uploadRoutes(app: FastifyTypedInstance) {
   app.post(
@@ -20,6 +22,10 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
         const deputadoRepository = DeputadoRepositoryPrisma.build(prisma);
         const deputadoService = new DeputadoServiceImplementation(
           deputadoRepository
+        );
+        const despesaRepository = DespesaRepositoryPrisma.build(prisma);
+        const despesaService = new DespesaServiceImplementation(
+          despesaRepository
         );
 
         const csvFile = await req.file();
@@ -87,11 +93,7 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
         // console.log("deputados: ", deputados.length);
 
         await deputadoService.saveMany(deputados);
-
-        await prisma.despesa.createMany({
-          data: despesas,
-          skipDuplicates: true,
-        });
+        await despesaService.saveMany(despesas);
 
         return reply.send({ message: "Arquivo CSV processado com sucesso!" });
       } catch (error) {
