@@ -12,7 +12,7 @@ import { fastifyMultipart } from "@fastify/multipart";
 
 import { uploadRoutes } from "./routes/upload/upload.routes";
 import { deputyRoutes } from "./routes/deputy/deputy.routes";
-import { de } from "zod/v4/locales";
+import { expenseRoutes } from "./routes/expense/expense.routes";
 
 const app = fastify({
   logger: true,
@@ -51,6 +51,7 @@ app.register(fastifySwaggerUi, {
 
 app.register(uploadRoutes);
 app.register(deputyRoutes);
+app.register(expenseRoutes);
 
 app.get("/", async (req, reply) => {
   return reply.status(200).send({
