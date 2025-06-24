@@ -1,0 +1,53 @@
+import { fastify } from "fastify";
+import { fastifyCors } from "@fastify/cors";
+import { fastifySwagger } from "@fastify/swagger";
+import {
+  validatorCompiler,
+  serializerCompiler,
+  ZodTypeProvider,
+  jsonSchemaTransform,
+} from "fastify-type-provider-zod";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
+import { fastifyMultipart } from "@fastify/multipart";
+
+import { uploadRoutes } from "./routes/upload/upload.routes";
+
+const app = fastify({
+  logger: true,
+}).withTypeProvider<ZodTypeProvider>();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(fastifyCors, { origin: "*" });
+
+app.register(fastifyMultipart, {
+  limits: {
+    fileSize: 50000000, // 50MB
+  },
+});
+
+app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "API",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+
+app.register(fastifySwaggerUi, {
+  routePrefix: "/docs",
+});
+
+app.register(uploadRoutes);
+
+app
+  .listen({
+    port: 3333,
+    host: "0.0.0.0",
+  })
+  .then(() => {
+    console.log("Server listening on port 3333");
+  });
