@@ -17,6 +17,11 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
     },
     async (req, reply) => {
       try {
+        const deputadoRepository = DeputadoRepositoryPrisma.build(prisma);
+        const deputadoService = new DeputadoServiceImplementation(
+          deputadoRepository
+        );
+
         const csvFile = await req.file();
 
         if (!csvFile || csvFile.mimetype !== "text/csv") {
@@ -49,11 +54,6 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
         }
 
         const resultsFiltered = results.filter((row) => UFS.includes(row.sgUF));
-
-        const deputadoRepository = DeputadoRepositoryPrisma.build(prisma);
-        const deputadoService = new DeputadoServiceImplementation(
-          deputadoRepository
-        );
 
         const deputados: Deputado[] = [];
         const despesas: Despesa[] = [];
@@ -104,36 +104,3 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
     }
   );
 }
-
-//   txNomeParlamentar: 'Fausto Pinato',
-//   cpf: '28022995819',
-//   ideCadastro: '66828',
-//   nuCarteiraParlamentar: '355',
-//   nuLegislatura: '2023',
-//   sgUF: 'SP',
-//   sgPartido: 'PP',
-//   codLegislatura: '57',
-//   numSubCota: '3',
-//   txtDescricao: 'COMBUSTÍVEIS E LUBRIFICANTES.',
-//   numEspecificacaoSubCota: '1',
-//   txtDescricaoEspecificacao: 'Veículos Automotores',
-//   txtFornecedor: 'C M AUTO POSTO LT',
-//   txtCNPJCPF: '455.427.680/0012-5',
-//   txtNumero: '095640',
-//   indTipoDocumento: '0',
-//   datEmissao: '2025-02-20T00:00:00',
-//   vlrDocumento: '150',
-//   vlrGlosa: '0',
-//   vlrLiquido: '150',
-//   numMes: '2',
-//   numAno: '2025',
-//   numParcela: '0',
-//   txtPassageiro: '',
-//   txtTrecho: '',
-//   numLote: '2113916',
-//   numRessarcimento: '',
-//   datPagamentoRestituicao: '',
-//   vlrRestituicao: '',
-//   nuDeputadoId: '2917',
-//   ideDocumento: '7875421',
-//   urlDocumento: 'https://www.camara.leg.br/cota-parlamentar/documentos/publ/2917/2025/7875421.pdf'
