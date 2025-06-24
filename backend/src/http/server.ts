@@ -11,6 +11,7 @@ import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { fastifyMultipart } from "@fastify/multipart";
 
 import { uploadRoutes } from "./routes/upload/upload.routes";
+import { deputadoRoutes } from "./routes/deputado/deputado.routes";
 
 const app = fastify({
   logger: true,
@@ -33,6 +34,12 @@ app.register(fastifySwagger, {
       title: "API",
       version: "1.0.0",
     },
+    servers: [
+      {
+        url: "http://localhost:3333",
+        description: "Local server",
+      },
+    ],
   },
   transform: jsonSchemaTransform,
 });
@@ -42,6 +49,7 @@ app.register(fastifySwaggerUi, {
 });
 
 app.register(uploadRoutes);
+app.register(deputadoRoutes);
 
 app
   .listen({

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { Deputado } from "../../../generated/prisma_client";
 import { DeputadoRepository } from "../../repositories/deputado/deputado.repository";
 import { DeputadoService } from "./deputado.service";
@@ -25,8 +25,11 @@ export class DeputadoServiceImplementation implements DeputadoService {
 
   async saveMany(deputados: Deputado[]): Promise<Deputado[]> {
     deputados.forEach(this.validateDeputado);
-    // Supondo que o repository tenha um método saveMany, senão, implemente lá também
     return this.repository.saveMany(deputados);
+  }
+
+  async findByUf(uf: string): Promise<Deputado[]> {
+    return this.repository.findByUf(uf);
   }
 
   private validateDeputado(deputado: Deputado) {

@@ -22,4 +22,8 @@ export class DeputadoRepositoryPrisma implements DeputadoRepository {
     });
     return deputados;
   }
+
+  async findByUf(uf: string): Promise<Deputado[]> {
+    return this.prisma.deputado.findMany({ where: { uf } });
+  }
 }
