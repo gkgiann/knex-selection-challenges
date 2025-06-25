@@ -20,4 +20,14 @@ export class ExpenseServiceImplementation implements ExpenseService {
   async findExpensesByDeputyId(deputyId: string) {
     return this.repository.findExpensesByDeputyId(deputyId);
   }
+
+  async getSumOfExpensesByDeputyId(deputyId: string): Promise<string> {
+    const expenses = await this.findExpensesByDeputyId(deputyId);
+
+    const total = expenses.reduce(
+      (acc, curr) => acc + parseFloat(curr.valorLiquido || "0"),
+      0
+    );
+    return total.toString();
+  }
 }
