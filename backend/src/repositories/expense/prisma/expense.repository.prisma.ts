@@ -22,8 +22,21 @@ export class ExpenseRepositoryPrisma implements ExpenseRepository {
     return expenses;
   }
 
-  async findExpensesByDeputyId(deputyId: string): Promise<Expense[]> {
-    return this.prisma.expense.findMany({ where: { deputadoId: deputyId } });
+  async findExpensesByDeputyId(
+    deputyId: string,
+    perPage: number,
+    skip: number
+  ): Promise<{ expenses: Expense[]; total: number }> {
+    const [expenses, total] = await this.prisma.$transaction([
+      this.prisma.expense.findMany({
+        where: { deputadoId: deputyId },
+        take: perPage,
+        skip,
+      }),
+      this.prisma.expense.count({ where: { deputadoId: deputyId } }),
+    ]);
+
+    return { expenses, total };
   }
 
   async getSumOfExpensesByDeputyId(deputyId: string): Promise<number> {

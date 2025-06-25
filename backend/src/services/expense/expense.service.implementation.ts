@@ -1,3 +1,4 @@
+import { skip } from "node:test";
 import { Expense } from "../../../generated/prisma_client";
 import { ExpenseRepository } from "../../repositories/expense/expense.repository";
 import { ExpenseService } from "./expense.service";
@@ -17,8 +18,12 @@ export class ExpenseServiceImplementation implements ExpenseService {
     return this.repository.saveMany(expenses);
   }
 
-  async findExpensesByDeputyId(deputyId: string) {
-    return this.repository.findExpensesByDeputyId(deputyId);
+  async findExpensesByDeputyId(
+    deputyId: string,
+    perPage: number,
+    skip: number
+  ): Promise<{ expenses: Expense[]; total: number }> {
+    return this.repository.findExpensesByDeputyId(deputyId, perPage, skip);
   }
 
   async getSumOfExpensesByDeputyId(deputyId: string): Promise<number> {
