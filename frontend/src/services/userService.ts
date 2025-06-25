@@ -1,4 +1,5 @@
 import { ApiResponse, User } from "@/types/user";
+import axios from "axios";
 import Cookies from "js-cookie";
 
 interface RandomUserApiUser {
@@ -53,18 +54,21 @@ export const userService = {
 
   fetchUser: async (): Promise<ApiResponse> => {
     try {
-      const response = await fetch(
+      const response = await axios.get(
         "https://randomuser.me/api/?nat=br&inc=name,email,phone,dob,location,picture,login"
       );
 
-      if (!response.ok) {
+      if (
+        !response.data ||
+        !response.data.results ||
+        !response.data.results[0]
+      ) {
         throw new Error("Erro ao buscar usuário da API");
       }
 
-      const data = await response.json();
-      const randomUser: RandomUserApiUser = data.results[0];
+      const randomUser: RandomUserApiUser = response.data.results[0];
 
-      console.log(data);
+      console.log(response.data);
 
       const user = convertRandomUserToUser(randomUser);
       const token = randomUser.login.sha256;
