@@ -29,11 +29,11 @@ export class ExpenseRepositoryPrisma implements ExpenseRepository {
   ): Promise<{ expenses: Expense[]; total: number }> {
     const [expenses, total] = await this.prisma.$transaction([
       this.prisma.expense.findMany({
-        where: { deputadoId: deputyId },
+        where: { deputyId },
         take: perPage,
         skip,
       }),
-      this.prisma.expense.count({ where: { deputadoId: deputyId } }),
+      this.prisma.expense.count({ where: { deputyId } }),
     ]);
 
     return { expenses, total };
@@ -41,18 +41,18 @@ export class ExpenseRepositoryPrisma implements ExpenseRepository {
 
   async getSumOfExpensesByDeputyId(deputyId: string): Promise<number> {
     const result = await this.prisma.expense.aggregate({
-      where: { deputadoId: deputyId },
-      _sum: { valorLiquido: true },
+      where: { deputyId },
+      _sum: { netValue: true },
     });
 
-    return Number((result._sum.valorLiquido ?? 0).toFixed(2));
+    return Number((result._sum.netValue ?? 0).toFixed(2));
   }
 
   async getSumOfAllExpenses(): Promise<number> {
     const result = await this.prisma.expense.aggregate({
-      _sum: { valorLiquido: true },
+      _sum: { netValue: true },
     });
 
-    return Number((result._sum.valorLiquido ?? 0).toFixed(2));
+    return Number((result._sum.netValue ?? 0).toFixed(2));
   }
 }

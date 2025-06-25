@@ -15,22 +15,22 @@ datasource db {
 }
 
 model Deputy {
-  id      String @id
-  nome    String
-  uf      String
-  cpf     String @unique
-  partido String
+  id    String @id
+  name  String
+  uf    String
+  cpf   String @unique
+  party String
 
   expenses Expense[]
 }
 
 model Expense {
-  id           String  @id
-  dataEmissao  String
-  fornecedor   String
-  valorLiquido Float
-  urlDocumento String?
-  deputadoId   String
+  id          String  @id
+  issueDate   String
+  supplier    String
+  netValue    Float
+  documentUrl String?
+  deputyId    String
 
-  deputy Deputy @relation(fields: [deputadoId], references: [id])
+  deputy Deputy @relation(fields: [deputyId], references: [id])
 }

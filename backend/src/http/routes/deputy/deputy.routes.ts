@@ -23,10 +23,10 @@ export async function deputyRoutes(app: FastifyTypedInstance) {
           200: z.array(
             z.object({
               id: z.string(),
-              nome: z.string(),
+              name: z.string(),
               uf: z.string(),
               cpf: z.string(),
-              partido: z.string(),
+              party: z.string(),
             })
           ),
           400: z.object({ message: z.string() }),
@@ -49,15 +49,7 @@ export async function deputyRoutes(app: FastifyTypedInstance) {
 
       const deputies = await deputyService.findByUf(uf);
 
-      const formattedDeputies = deputies.map((d) => ({
-        id: d.id,
-        nome: d.nome,
-        uf: d.uf as (typeof UFS)[number],
-        cpf: d.cpf,
-        partido: d.partido,
-      }));
-
-      return reply.send(formattedDeputies);
+      return reply.send(deputies);
     }
   );
 }

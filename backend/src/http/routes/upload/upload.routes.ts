@@ -79,10 +79,10 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
         for (const row of resultsFiltered) {
           const deputy = {
             id: row.ideCadastro,
-            nome: row.txNomeParlamentar,
+            name: row.txNomeParlamentar,
             uf: row.sgUF,
             cpf: row.cpf,
-            partido: row.sgPartido,
+            party: row.sgPartido,
           };
 
           if (!deputies.some((d) => d.id === deputy.id)) {
@@ -91,11 +91,11 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
 
           const expense = {
             id: row.ideDocumento,
-            dataEmissao: row.datEmissao,
-            fornecedor: row.txtFornecedor,
-            valorLiquido: parseFloat(row.vlrLiquido ?? 0),
-            urlDocumento: row.urlDocumento,
-            deputadoId: deputy.id,
+            issueDate: row.datEmissao,
+            supplier: row.txtFornecedor,
+            netValue: parseFloat(row.vlrLiquido ?? 0),
+            documentUrl: row.urlDocumento,
+            deputyId: deputy.id,
           };
 
           expenses.push(expense);

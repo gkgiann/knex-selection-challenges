@@ -1,4 +1,3 @@
-import { skip } from "node:test";
 import { Expense } from "../../../generated/prisma_client";
 import { ExpenseRepository } from "../../repositories/expense/expense.repository";
 import { ExpenseService } from "./expense.service";

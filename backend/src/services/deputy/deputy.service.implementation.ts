@@ -4,11 +4,11 @@ import { DeputyService } from "./deputy.service";
 import { Deputy } from "../../../generated/prisma_client";
 
 const DeputySchema = z.object({
-  id: z.string().min(1, "id é obrigatório"),
-  nome: z.string().min(1, "nome é obrigatório"),
+  id: z.string().min(1, "id is required"),
+  name: z.string().min(1, "name is required"),
   uf: z.string().min(2).max(2),
   cpf: z.string().optional(),
-  partido: z.string().optional(),
+  party: z.string().optional(),
 });
 
 export class DeputyServiceImplementation implements DeputyService {
