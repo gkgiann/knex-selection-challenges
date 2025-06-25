@@ -7,8 +7,3 @@ export interface User {
   location: string;
   avatar: string;
 }
-
-export interface ApiResponse {
-  user: User;
-  token: string;
-}

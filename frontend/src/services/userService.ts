@@ -1,4 +1,4 @@
-import { ApiResponse, User } from "@/types/user";
+import { User } from "@/types/user";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -52,7 +52,7 @@ export const userService = {
     });
   },
 
-  fetchUser: async (): Promise<ApiResponse> => {
+  fetchUser: async () => {
     try {
       const response = await axios.get(
         "https://randomuser.me/api/?nat=br&inc=name,email,phone,dob,location,picture,login"
@@ -99,7 +99,7 @@ export const userService = {
     }
   },
 
-  login: async (): Promise<ApiResponse> => {
+  login: async () => {
     const response = await userService.fetchUser();
     userService.setToken(response.token);
     return response;
