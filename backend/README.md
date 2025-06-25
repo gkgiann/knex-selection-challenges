@@ -1,3 +1,34 @@
+# Como executar a aplicação
+
+1. **Pré-requisitos:**
+   - Docker e Docker Compose instalados
+
+2. **Clone o repositório:**
+   ```sh
+   git clone <url-do-repositorio>
+   cd backend
+   ```
+
+3. **Configure o ambiente:**
+   - Crie um arquivo `.env` na raiz do projeto com:
+     ```env
+     DATABASE_URL="postgresql://postgres:prisma@postgres:5432/postgres?schema=public"
+     ```
+
+4. **Suba toda a API e o banco Postgres com Docker Compose:**
+   ```sh
+   docker-compose up -d --build
+   ```
+   - Isso irá subir o banco de dados e a API juntos.
+   - A API estará disponível em `http://localhost:3333`.
+
+5. **Acesse a documentação Swagger:**
+   - Acesse `http://localhost:3333/docs` para ver a documentação e ver exemplos de requisição/resposta.
+
+6. **Upload de dados:**
+    - Use o endpoint `/upload-csv` para importar o CSV de deputados e despesas.
+---
+
 # Teste Técnico - Backend
 
 > Knex Empresa Júnior de Computação
