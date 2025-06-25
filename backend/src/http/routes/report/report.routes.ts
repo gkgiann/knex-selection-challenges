@@ -21,7 +21,7 @@ export async function reportRoutes(app: FastifyTypedInstance) {
         response: {
           200: z.object({
             deputyId: z.string(),
-            totalExpenses: z.string(),
+            totalExpenses: z.number(),
           }),
           404: z.object({ message: z.string() }),
         },
@@ -52,6 +52,33 @@ export async function reportRoutes(app: FastifyTypedInstance) {
         deputyId: id,
         totalExpenses: totalSumExpenses,
       });
+    }
+  );
+
+  app.get(
+    "/reports/total-expenses",
+    {
+      schema: {
+        tags: ["Relatórios"],
+        summary: "Obter despesas totais de todos os deputados",
+        description:
+          "Retorna a soma de todas as despesas de todos os deputados.",
+        response: {
+          200: z.object({
+            totalExpenses: z.number(),
+          }),
+        },
+      },
+    },
+    async (req, reply) => {
+      const expenseRepository = ExpenseRepositoryPrisma.build(prisma);
+      const expenseService = new ExpenseServiceImplementation(
+        expenseRepository
+      );
+
+      const totalSumExpenses = await expenseService.getSumOfAllExpenses();
+
+      return reply.send({ totalExpenses: totalSumExpenses });
     }
   );
 }
