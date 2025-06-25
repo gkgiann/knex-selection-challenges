@@ -28,7 +28,7 @@ model Expense {
   id           String  @id
   dataEmissao  String
   fornecedor   String
-  valorLiquido String
+  valorLiquido Float
   urlDocumento String?
   deputadoId   String
 
