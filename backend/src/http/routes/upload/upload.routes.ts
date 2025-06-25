@@ -93,7 +93,7 @@ export async function uploadRoutes(app: FastifyTypedInstance) {
             id: row.ideDocumento,
             dataEmissao: row.datEmissao,
             fornecedor: row.txtFornecedor,
-            valorLiquido: row.vlrLiquido,
+            valorLiquido: parseFloat(row.vlrLiquido ?? 0),
             urlDocumento: row.urlDocumento,
             deputadoId: deputy.id,
           };
