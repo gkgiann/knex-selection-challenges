@@ -23,6 +23,24 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  api:
+    build:
+      context: .
+    container_name: api
+    stdin_open: true
+    tty: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3333:3333"
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - prisma-network
+
 networks:
   prisma-network:
 
