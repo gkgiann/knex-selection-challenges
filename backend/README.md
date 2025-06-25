@@ -17,7 +17,7 @@
 
 4. **Suba toda a API e o banco Postgres com Docker Compose:**
    ```sh
-   docker-compose up -d --build
+   docker compose up -d --build
    ```
    - Isso irá subir o banco de dados e a API juntos.
    - A API estará disponível em `http://localhost:3333`.
