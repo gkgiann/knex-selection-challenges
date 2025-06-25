@@ -22,7 +22,7 @@ export async function expenseRoutes(app: FastifyTypedInstance) {
             z.object({
               dataEmissao: z.string(),
               fornecedor: z.string(),
-              valorLiquido: z.string(),
+              valorLiquido: z.number(),
               urlDocumento: z.string().nullable(),
             })
           ),

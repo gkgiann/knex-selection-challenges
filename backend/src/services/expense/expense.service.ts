@@ -4,5 +4,6 @@ export interface ExpenseService {
   save(expense: Expense): Promise<Expense | null>;
   saveMany(expenses: Expense[]): Promise<Expense[]>;
   findExpensesByDeputyId(deputyId: string): Promise<Expense[]>;
-  getSumOfExpensesByDeputyId(deputyId: string): Promise<string>;
+  getSumOfExpensesByDeputyId(deputyId: string): Promise<number>;
+  getSumOfAllExpenses(): Promise<number>;
 }

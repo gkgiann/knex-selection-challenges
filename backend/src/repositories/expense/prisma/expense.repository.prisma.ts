@@ -25,4 +25,21 @@ export class ExpenseRepositoryPrisma implements ExpenseRepository {
   async findExpensesByDeputyId(deputyId: string): Promise<Expense[]> {
     return this.prisma.expense.findMany({ where: { deputadoId: deputyId } });
   }
+
+  async getSumOfExpensesByDeputyId(deputyId: string): Promise<number> {
+    const result = await this.prisma.expense.aggregate({
+      where: { deputadoId: deputyId },
+      _sum: { valorLiquido: true },
+    });
+
+    return Number((result._sum.valorLiquido ?? 0).toFixed(2));
+  }
+
+  async getSumOfAllExpenses(): Promise<number> {
+    const result = await this.prisma.expense.aggregate({
+      _sum: { valorLiquido: true },
+    });
+
+    return Number((result._sum.valorLiquido ?? 0).toFixed(2));
+  }
 }
