@@ -1,8 +1,8 @@
 import z from "zod";
 
 export const postSchema = z.object({
-  title: z.string().min(1, "Título obrigatório"),
-  body: z.string().min(1, "Texto obrigatório"),
+  title: z.string().trim().min(1, "Título obrigatório"),
+  body: z.string().trim().min(1, "Texto obrigatório"),
 });
 
 export type PostFormData = z.infer<typeof postSchema>;
