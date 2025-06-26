@@ -2,6 +2,7 @@
 
 import { usePosts } from "@/contexts/PostContext";
 import { useUser } from "@/contexts/UserContext";
+import { AnimatePresence, motion } from "framer-motion";
 import Post from "./Post";
 import PostForm from "./PostForm";
 
@@ -33,15 +34,27 @@ export default function PostList() {
     <div className="space-y-6 mt-10">
       <PostForm />
       <h1 className="text-3xl font-bold text-gray-900">Posts</h1>
-
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          post={post}
-          user={user}
-          selfRemoving={removing === post.id}
-        />
-      ))}
+      <AnimatePresence>
+        {posts.map((post) => (
+          <motion.div
+            key={post.id}
+            layout
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            exit={{
+              opacity: 0,
+              scale: 0.6,
+              rotate: 30,
+              filter: "blur(2px)",
+              y: -100,
+              transition: { duration: 0.35, ease: "easeIn" },
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <Post post={post} user={user} selfRemoving={removing === post.id} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
