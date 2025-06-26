@@ -4,6 +4,7 @@ import { usePosts } from "@/contexts/PostContext";
 import { useUser } from "@/contexts/UserContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import Skeleton from "../layout/Skeleton";
 import Post from "./Post";
 import PostEdit from "./PostEdit";
 import PostForm from "./PostForm";
@@ -15,19 +16,7 @@ export default function PostList() {
   const [editingPostId, setEditingPostId] = useState<number | null>(null);
 
   if (userLoading || postsLoading) {
-    return (
-      <div className="mt-4 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="animate-pulse">
-          <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 bg-gray-300 rounded-full"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-gray-300 rounded w-32"></div>
-              <div className="h-3 bg-gray-300 rounded w-24"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Skeleton />;
   }
 
   if (!user) {

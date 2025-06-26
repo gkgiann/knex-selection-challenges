@@ -3,24 +3,13 @@
 import { useUser } from "@/contexts/UserContext";
 import { Calendar, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
+import Skeleton from "../layout/Skeleton";
 
 export default function UserProfile() {
   const { user, loading } = useUser();
 
   if (loading) {
-    return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="animate-pulse">
-          <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 bg-gray-300 rounded-full"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-gray-300 rounded w-32"></div>
-              <div className="h-3 bg-gray-300 rounded w-24"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Skeleton />;
   }
 
   if (!user) {
