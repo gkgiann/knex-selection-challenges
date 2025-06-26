@@ -4,6 +4,7 @@ import { usePosts } from "@/contexts/PostContext";
 import { useUser } from "@/contexts/UserContext";
 import { Trash } from "lucide-react";
 import Image from "next/image";
+import PostForm from "./PostForm";
 
 export default function PostList() {
   const { user, loading: userLoading } = useUser();
@@ -35,13 +36,8 @@ export default function PostList() {
 
   return (
     <div className="space-y-6 mt-10">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Posts</h1>
-
-        <button className="mt-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded font-bold cursor-pointer">
-          Criar Post
-        </button>
-      </div>
+      <PostForm />
+      <h1 className="text-3xl font-bold text-gray-900">Posts</h1>
 
       {posts.map((post) => (
         <div
