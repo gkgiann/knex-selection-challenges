@@ -1,3 +1,4 @@
+import PostList from "@/components/posts/PostList";
 import UserProfile from "@/components/user/UserProfile";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
 
       <div className="max-w-2xl mx-auto">
         <UserProfile />
+        <PostList />
       </div>
     </div>
   );
