@@ -3,12 +3,16 @@
 import { usePosts } from "@/contexts/PostContext";
 import { useUser } from "@/contexts/UserContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import Post from "./Post";
+import PostEdit from "./PostEdit";
 import PostForm from "./PostForm";
 
 export default function PostList() {
   const { user, loading: userLoading } = useUser();
-  const { posts, removing, loading: postsLoading } = usePosts();
+  const { posts, removing, loading: postsLoading, updating } = usePosts();
+
+  const [editingPostId, setEditingPostId] = useState<number | null>(null);
 
   if (userLoading || postsLoading) {
     return (
@@ -51,7 +55,21 @@ export default function PostList() {
             }}
             transition={{ duration: 0.3 }}
           >
-            <Post post={post} user={user} selfRemoving={removing === post.id} />
+            {editingPostId === post.id ? (
+              <PostEdit
+                post={post}
+                user={user}
+                selfUpdating={updating === post.id}
+                onCancel={() => setEditingPostId(null)}
+              />
+            ) : (
+              <Post
+                post={post}
+                user={user}
+                selfRemoving={removing === post.id}
+                onEdit={() => setEditingPostId(post.id)}
+              />
+            )}
           </motion.div>
         ))}
       </AnimatePresence>

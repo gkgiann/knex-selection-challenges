@@ -1,16 +1,9 @@
 "use client";
 
 import { usePosts } from "@/contexts/PostContext";
+import { PostFormData, postSchema } from "@/types/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const postSchema = z.object({
-  title: z.string().min(1, "Título obrigatório"),
-  body: z.string().min(1, "Texto obrigatório"),
-});
-
-type PostFormData = z.infer<typeof postSchema>;
 
 export default function PostForm() {
   const { create, creating } = usePosts();

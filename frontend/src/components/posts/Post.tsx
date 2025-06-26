@@ -1,16 +1,17 @@
 import { usePosts } from "@/contexts/PostContext";
-import type { Post as PostType } from "@/types/post";
+import type { Post } from "@/types/post";
 import { User } from "@/types/user";
-import { Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import Image from "next/image";
 
 interface PostProps {
-  post: PostType;
+  post: Post;
   user: User;
   selfRemoving: boolean;
+  onEdit: () => void;
 }
 
-export default function Post({ post, user, selfRemoving }: PostProps) {
+export default function Post({ post, user, selfRemoving, onEdit }: PostProps) {
   const { remove } = usePosts();
 
   async function handleDelete() {
@@ -38,10 +39,18 @@ export default function Post({ post, user, selfRemoving }: PostProps) {
           <div className="text-xs text-gray-500">{user.location}</div>
         </div>
         <button
-          className="ml-auto p-2 rounded-full hover:bg-red-50 transition-colors cursor-pointer"
+          className="ml-auto p-2 rounded-full hover:bg-blue-50 transition-colors cursor-pointer mr-2"
+          title="Editar post"
+          onClick={onEdit}
+          disabled={selfRemoving}
+        >
+          <Pencil className="w-5 h-5 text-blue-500" />
+        </button>
+        <button
+          className="p-2 rounded-full hover:bg-red-50 transition-colors cursor-pointer"
           title="Deletar post"
           onClick={handleDelete}
-          disabled={!!selfRemoving}
+          disabled={selfRemoving}
         >
           <Trash className="w-5 h-5 text-red-500" />
         </button>
