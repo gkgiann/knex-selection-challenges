@@ -68,8 +68,6 @@ export const userService = {
 
       const randomUser: RandomUserApiUser = response.data.results[0];
 
-      console.log(response.data);
-
       const user = convertRandomUserToUser(randomUser);
       const token = randomUser.login.sha256;
 
