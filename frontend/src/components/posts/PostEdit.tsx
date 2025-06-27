@@ -78,15 +78,16 @@ export default function PostEdit({
       <div className="flex gap-2 mt-2">
         <button
           type="submit"
-          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded font-bold disabled:opacity-60"
+          className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded font-bold cursor-pointer transition-colors hover:from-blue-600 hover:to-purple-700 disabled:opacity-60 disabled:cursor-wait"
           disabled={selfUpdating}
         >
           {selfUpdating ? "Salvando..." : "Salvar"}
         </button>
         <button
           type="button"
-          className="bg-gray-200 text-gray-700 py-2 px-4 rounded font-bold"
+          className="bg-gray-200 text-gray-700 py-2 px-4 rounded font-bold cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           onClick={onCancel}
+          disabled={selfUpdating}
         >
           Cancelar
         </button>

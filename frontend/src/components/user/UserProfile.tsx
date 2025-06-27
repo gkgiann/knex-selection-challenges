@@ -19,13 +19,13 @@ export default function UserProfile() {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-white font-semibold text-lg">Meu Perfil</h2>
-        </div>
+        <h2 className="text-white font-semibold text-lg not-sm:text-center">
+          Meu Perfil
+        </h2>
       </div>
 
       <div className="p-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-6">
+        <div className="flex flex-col items-start sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-6">
           <div className="relative">
             <Image
               src={user.avatar}
@@ -41,7 +41,7 @@ export default function UserProfile() {
             <h3 className="text-xl font-bold text-gray-900 mb-1">
               {user.name}
             </h3>
-            <p className="text-gray-600 mb-2">Usuário ativo</p>
+            <p className="text-gray-600 mb-2">Online</p>
             <div className="flex items-center text-sm text-gray-500">
               <Calendar className="w-4 h-4 mr-1" />
               {user.age} anos
@@ -49,7 +49,7 @@ export default function UserProfile() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
             <Mail className="w-5 h-5 text-blue-500" />
             <div>

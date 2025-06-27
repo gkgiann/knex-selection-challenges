@@ -31,7 +31,7 @@ export default function PostForm() {
         type="text"
         placeholder="Título"
         className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        disabled={!!creating}
+        disabled={creating}
         {...register("title")}
       />
 
@@ -42,7 +42,7 @@ export default function PostForm() {
       <textarea
         placeholder="Escreva seu post..."
         className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px] resize-y"
-        disabled={!!creating}
+        disabled={creating}
         {...register("body")}
       />
 
@@ -52,10 +52,10 @@ export default function PostForm() {
 
       <button
         type="submit"
-        className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded font-bold disabled:opacity-60  ${
-          creating ? "cursor-not-allowed" : "cursor-pointer"
+        className={`bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded font-bold transition-colors hover:from-blue-600 hover:to-purple-700 disabled:opacity-60  ${
+          creating ? "cursor-wait" : "cursor-pointer"
         }`}
-        disabled={!!creating}
+        disabled={creating}
       >
         {creating ? "Publicando..." : "Publicar"}
       </button>
