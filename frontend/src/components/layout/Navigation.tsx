@@ -29,7 +29,7 @@ export default function Navigation() {
         title="Notificações"
       >
         <Bell className="w-6 h-6 text-gray-700" />
-        <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+        <span className="absolute -top-0 -right-0 w-2 h-2 bg-blue-500 rounded-full"></span>
       </button>
 
       {user ? (
@@ -44,7 +44,7 @@ export default function Navigation() {
         </div>
       ) : (
         <button
-          className="p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
+          className="p-2 rounded-full transition-colors cursor-pointer"
           title="Perfil"
         >
           <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
