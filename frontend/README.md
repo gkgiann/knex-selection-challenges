@@ -10,11 +10,11 @@ Uma rede social simples desenvolvida como parte do teste técnico da Knex Empres
 
 ### 📸 Screenshots
 
-#### Tela Principal
+#### Perfil do Usuário
 
 ![Tela Principal](./images/01.png)
 
-#### Perfil do Usuário
+#### Form e Posts
 
 ![Perfil do Usuário](./images/02.png)
 
