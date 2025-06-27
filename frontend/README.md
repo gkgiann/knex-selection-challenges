@@ -1,28 +1,78 @@
-# Como executar a aplicação
+# Gianect - Rede Social simples
 
-1. **Pré-requisitos:**
-   - Node.js
-   - npm
+Uma rede social simples desenvolvida como parte do teste técnico da Knex Empresa Júnior de Computação.
 
-2. **Clone o repositório:**
-   ```sh
+## 🚀 Tecnologias Utilizadas
+
+### Framework Frontend
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+
+### Gerenciamento de Estado & Contexto
+
+- **Context API**
+- **Hooks**
+
+### Formulários & Validação
+
+- **React Hook Form**
+- **Zod**
+
+### HTTP Client & APIs
+
+- **Axios**
+- **Random User Generator API**
+- **JSONPlaceholder API**
+
+### Animações & Ícones
+
+- **Framer Motion**
+- **Lucide React**
+
+### Cookies
+
+- **js-cookie**
+
+### Formatação e Padronização de Código
+
+- **ESLint**
+- **Prettier**
+
+## 🛠️ Como Executar
+
+### Pré-requisitos
+
+- Node.js
+- npm
+
+### Instalação e Execução
+
+1. **Clone o repositório:**
+
+   ```bash
    git clone <url-do-repositorio>
    cd frontend
    ```
 
-3. **Instale as dependências:**
-   ```sh
+2. **Instale as dependências:**
+
+   ```bash
    npm install
    ```
 
-4. **Execute a aplicação em modo de desenvolvimento:**
-   ```sh
+3. **Execute em modo de desenvolvimento:**
+   ```bash
    npm run dev
    ```
-   - A aplicação estará disponível em `http://localhost:3000`
+4. **Acesse a aplicação:**
+   - Abra seu navegador em `http://localhost:3000`
+
 ---
 
-# Teste Técnico - Frontend
+# Teste Técnico Original - Frontend
 
 > Knex Empresa Júnior de Computação
 
