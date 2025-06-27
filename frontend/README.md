@@ -2,7 +2,35 @@
 
 Uma rede social simples desenvolvida como parte do teste técnico da Knex Empresa Júnior de Computação.
 
-## 🚀 Tecnologias Utilizadas
+## � Demonstração da Aplicação
+
+### 🎥 Vídeo Demonstrativo
+
+[Assista ao vídeo da aplicação em funcionamento](https://drive.google.com/file/d/1-gypgvdHjNyyXMSn5-awvh5Ekt-bso7j/view?usp=sharing)
+
+### 📸 Screenshots
+
+#### Tela Principal
+
+![Tela Principal](./images/01.png)
+
+#### Perfil do Usuário
+
+![Perfil do Usuário](./images/02.png)
+
+#### Criação de Post
+
+![Criação de Post](./images/03.png)
+
+#### Edição de Posts
+
+![Edição de Posts](./images/04.png)
+
+#### Interface Responsiva
+
+![Interface Responsiva](./images/05.png)
+
+## �🚀 Tecnologias Utilizadas
 
 ### Framework Frontend
 
