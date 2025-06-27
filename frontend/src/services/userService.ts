@@ -1,43 +1,7 @@
-import { User } from "@/types/user";
+import { RandomUserApiUser, User } from "@/types/user";
+import { convertRandomUserToUser } from "@/utils/convertRandomUser";
 import axios from "axios";
 import Cookies from "js-cookie";
-
-interface RandomUserApiUser {
-  name: {
-    first: string;
-    last: string;
-  };
-  email: string;
-  phone: string;
-  dob: {
-    age: number;
-  };
-  location: {
-    city: string;
-    state: string;
-  };
-  picture: {
-    large: string;
-  };
-  login: {
-    uuid: string;
-    sha256: string;
-  };
-}
-
-const convertRandomUserToUser = (randomUser: RandomUserApiUser): User => {
-  const state = randomUser.location.state;
-
-  return {
-    id: randomUser.login.uuid,
-    name: `${randomUser.name.first} ${randomUser.name.last}`,
-    email: randomUser.email,
-    phone: randomUser.phone,
-    age: randomUser.dob.age,
-    location: `${randomUser.location.city}, ${state}`,
-    avatar: randomUser.picture.large,
-  };
-};
 
 export const userService = {
   getToken: (): string | null => {
