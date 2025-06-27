@@ -8,10 +8,10 @@ import { z } from "zod/v4";
 
 import { UFS } from "../../../types/constants";
 
-import { DeputyRepositoryPrisma } from "../../../repositories/deputy/prisma/deputy.repository.prisma";
+import { DeputyRepositoryPrisma } from "../../../repositories/deputy/implementations/deputy.repository.prisma";
 import { DeputyServiceImplementation } from "../../../services/deputy/deputy.service.implementation";
 
-import { ExpenseRepositoryPrisma } from "../../../repositories/expense/prisma/expense.repository.prisma";
+import { ExpenseRepositoryPrisma } from "../../../repositories/expense/implementations/expense.repository.prisma";
 import { ExpenseServiceImplementation } from "../../../services/expense/expense.service.implementation";
 
 export async function uploadRoutes(app: FastifyTypedInstance) {

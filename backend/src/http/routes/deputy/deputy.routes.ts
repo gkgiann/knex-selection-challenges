@@ -1,7 +1,7 @@
 import { FastifyTypedInstance } from "../../../types/fastify-instance";
 import { prisma } from "../../../database/prisma";
 import { DeputyServiceImplementation } from "../../../services/deputy/deputy.service.implementation";
-import { DeputyRepositoryPrisma } from "../../../repositories/deputy/prisma/deputy.repository.prisma";
+import { DeputyRepositoryPrisma } from "../../../repositories/deputy/implementations/deputy.repository.prisma";
 import { z } from "zod/v4";
 import { UFS } from "../../../types/constants";
 
